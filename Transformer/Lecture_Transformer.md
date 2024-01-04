@@ -1,7 +1,4 @@
 # Lecture : Transformer
-
-태그: paper
-
 ## [1].Attention
 
 ### [1-1].Query, Key, Value
@@ -11,7 +8,7 @@
 - value : weigthed sum을 할 때 사용되는 references들에 대한 vector
 
 ### [1-2].Transformer Architecture Overview
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer1.png?raw=true)
+![Transformer1](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer1.png?raw=true)
 
 - 문맥 상에 있는 서로 영향을 받아 자신을 transform함
 - 전체적인 문맥에 맞게 자기 자신을 표현하는 방식을 바꾼 contextualized vector가 됨
@@ -33,7 +30,7 @@
     - Taking the mean over all revised token embeddings {$z_1^{(L)},...,z_N^{(L)}$}, we got a single embeddings z that represents the entire input.
 - On top of this, we may train a classifier or regressor to solve the target task we are interested in.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer2.png?raw=true)
+![Transformer2](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer2.png?raw=true)
 
 - Averaging may work well if the sequence is not very long and relatively homogeneous.
     - If not, the mean embedding z may not reflect the meaning of the entire input.
@@ -49,7 +46,7 @@
 - 전체를 담는 토큰을 생각함
 - [CLS]는 특정 토큰에 대한 특징을 담지 않는 아무 정보 없는 무작위 토큰입니다.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer3.png?raw=true)
+![Transformer3](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer3.png?raw=true)
 
 ### [2-3]. Training Transformers
 
@@ -57,7 +54,7 @@
 - The model’s output is compared with the ground truth (GT), and this loss is backpropagated all the way back to the first level.
 - Classifier or regressor may be put on the **sequence** or **token level**, depending on the availability of GT labels.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer4.png?raw=true)
+![Transformer4](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer4.png?raw=true)
 
 ### [2-4]. Inside the Transformer
 
@@ -82,7 +79,7 @@
 - Query, Key, Value representations:
     - For each word, we learn to map it to Q, K, V: instead of using the original embedding, (usually smaller) representation to work like a query, key, and value by linear transformation.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer5.png?raw=true)
+![Transformer5](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer5.png?raw=true)
 
 - At te beginning, Q, K, V are just a random projection of input X.
 - As those words are encountered during training, $W^{(Q,K,V)}$will be gradually map X to each so that Q, K ,V to serve as its own purpose.
@@ -99,7 +96,7 @@
 
 The self-attention calculation in matrix form
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer6.png?raw=true)
+![Transformer6](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer6.png?raw=true)
 
 - As the query Q itself is included in the weighted sum, Z tends to **be still self-dominated.**
 
@@ -119,14 +116,14 @@ weight은 key와 query의 similarity로 정해집니다.
     - Having multiple projections to Q, K, V is beneficial
     - Allows the model to jointly attend to information from different representation subspaces at different positions,
         
-        ![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer7.png?raw=true)
+        ![Transformer7](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer7.png?raw=true)
 
         - 문맥에 따라서 it 같은 중의적인 표현이 존재하는 경우를 구현하기 위함
     - Multiple self-attentions output multiple attention values ($Z_0, Z_1,…,Z_{k-1}$)
     - Simply concatenate them, then linearly transform it back to the original input size with $W^o$.
     - 최대한 8개의 head로 단어나 문맥에서 중의적인 부분을 처리하는데 충분했다. (자연어)
     
-    ![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer8.png?raw=true)
+    ![Transformer8](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer8.png?raw=true)
 
     
     Z는 input과 같은 길이와 크기의 sequence가 나옵니다 
@@ -134,7 +131,7 @@ weight은 key와 query의 similarity로 정해집니다.
 - one-step of Encoder
 - w가 서로 다르게 initialize되어서 서로 다른 정보를 학습하도록 함
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer9.png?raw=true)
+![Transformer9](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer9.png?raw=true)
 
 
 - R is Z (new input)
@@ -183,7 +180,7 @@ $$
 
 단어들의 순서를 표현하기 위한 방법을 위해 사용하였다.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer10.png?raw=true)
+![Transformer10](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer10.png?raw=true)
 
 - 문장의 표현 상 필요에 의해서 셋팅함
 - 임베딩 크기 절반 -1 까지 올라감
@@ -210,7 +207,7 @@ positional encoding은 sequence 들어가는 token들의 순서를 모델링하�
 
 - ★ sequence of token 이 들어가고 그 길이가 계속 같은 output으로 나옵니다.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer11.png?raw=true)
+![Transformer11](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer11.png?raw=true)
 
 **Step 4 : Decoder input**
 
@@ -235,7 +232,7 @@ positional encoding은 sequence 들어가는 token들의 순서를 모델링하�
     - **No masking** in this layer, as it is okeay (and necessary) to look at the entire encoded sequence.
     - 원문의 reference를 참고합니다. (No masking!)
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Trnasformer12.png?raw=true)
+![Transformer12](https://github.com/kang952175/CodeIntelligence/blob/main/Img/Transformer12.png?raw=true)
 
 
 **Step 7 : Feed-forward layer**
@@ -272,7 +269,7 @@ decoder 1) 자기 문장 구조 파악 2) 원문을 보기 위함 3) 자신을 �
     - Image patches are treated on the same way as tokens (words)
     - Eventually, an MLP is added on top of the [CLS] **token** to classify the input image.
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT1.png?raw=true)
+![ViT1](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT1.png?raw=true)
 
 
 transformer의 input : sequence data (input을 split 하여 그 sub components의 sequnce로 들어가 서로를  표현하는 방식을 배움 )
@@ -285,7 +282,7 @@ transformer의 input : sequence data (input을 split 하여 그 sub components�
 
 L : layer의 개수
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT2.png?raw=true)
+![ViT2](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT2.png?raw=true)
 
 
 Input! : sequence of token embedding (p by p patches)
@@ -314,7 +311,7 @@ positional Encoding은 learnable encoding
 
 ### [4-2]. ViT : Position Embeddings
 
-![Untitled](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT3.png?raw=true)
+![ViT3](https://github.com/kang952175/CodeIntelligence/blob/main/Img/ViT3.png?raw=true)
 
 - ViT learns to encode distance within the image in the similarity of position embeddings.
     - Closer patches tend to have more similar position embeddings
